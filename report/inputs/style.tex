@@ -1,0 +1,45 @@
+% Style commands go here.
+
+% Make the page a bit wider. Requires package geometry.
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% To indicate current chapter name and number in the header.
+% Requires package fancyhdr.
+\pagestyle{fancy}
+\renewcommand*{\chaptermark}[1]{\markboth{#1}{#1}}
+\fancyhead[R]{}
+\fancyhead[L]{\chaptername\ \thechapter\ --\ \leftmark \hfill \thepage}
+
+% Remove original page numbers (bottom, centered).
+\cfoot{}
+% Do the same for the page number in the chapter opening page (\cfoot{} leaves
+% those..).
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhf{}%
+}
+
+% For fancy chapter header.
+% Requires packages titlesec, blindtext, color.
+\definecolor{gray75}{gray}{0.75}
+\newcommand*{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+% To avoid fancy header in pages after the first, in TOC and bibliography.
+\let\origtoc\tableofcontents
+\renewcommand*{\tableofcontents}{%
+  \hypersetup{linkcolor=black}%
+  \chaptermark{Contents}\origtoc\cleardoublepage\hypersetup{linkcolor=MidnightBlue}}
+
+\let\bibliographyorig\bibliography
+\renewcommand*{\bibliography}[1]{%
+  \chaptermark{References}\bibliographyorig{#1}\cleardoublepage}
+
+% Uncomment when using an index. Makes the font small.
+% \let\printindexorig\printindex
+% \renewcommand*{\printindex}{%
+%   \footnotesize\printindexorig\cleardoublepage}
+
+% Proper format of caption text.
+% Requires package caption.
+\captionsetup{font=small, labelfont=bf}

@@ -1,0 +1,42 @@
+% Set up FONTS to use.
+
+\usepackage[bitstream-charter]{mathdesign}
+\usepackage{fontspec}
+\DeclareSymbolFont{usualmathcal}{OMS}{cmsy}{m}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{usualmathcal}
+
+\setmainfont[%
+  Path=$HOME/.fonts/truetype/ ,
+  Extension      = .ttf       ,
+  UprightFont    = *-R        ,
+  ItalicFont     = *-I        ,
+  BoldFont       = *-B        ,
+  BoldItalicFont = *-BI       ,
+  Scale=0.9 ,
+]{CharisSIL}
+\defaultfontfeatures[CharisSIL]{Script=latn, Ligatures=TeX}
+
+% \usepackage{fontawesome} does not work, because it expects the font to be
+% installed system-wide. However, XeLaTeX doesn't seem to like that, but the
+% fontawesome package does not provide for a way to specify a path for the
+% font. So I copied what I needed from fontawesome.sty in here...
+\newfontfamily{\FA}[%
+  Path      = /usr/share/texmf-dist/fonts/opentype/public/fontawesome/ ,
+  Extension = .otf       ,
+]{FontAwesome}
+
+% The command to access icons.
+\newcommand*{\faicon}[1]{%
+  {\csname faicon@#1\endcsname}}
+
+% The custom command for each needed icon.
+\def\faEnvelopeO{\faicon{envelope-o}}
+\def\faFirefox{\faicon{firefox}}
+\def\faHome{\faicon{home}}
+\def\faPhone{\faicon{phone}}
+
+% And the actual symbol for each icon.
+\expandafter\def\csname faicon@envelope-o\endcsname{{\FA\symbol{"F003}}}
+\expandafter\def\csname faicon@firefox\endcsname{{\FA\symbol{"F269}}}
+\expandafter\def\csname faicon@home\endcsname{{\FA\symbol{"F015}}}
+\expandafter\def\csname faicon@phone\endcsname{{\FA\symbol{"F095}}}

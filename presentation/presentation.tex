@@ -1,0 +1,72 @@
+\documentclass{beamer}
+% \documentclass[handout]{beamer}
+\input{inputs/preamble}
+
+\title{%
+A Presentation Template
+}
+
+\subtitle{%
+With a Subtitle, if Needed
+}
+
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}{On Science}
+  \vfill
+  \begin{itemize}
+    \item<1-> Science is \alert{cool}!
+      \vfill
+    \item<2-> Unfortunately a big great many lot of people \alert{do not seem to get it}\dots 
+      \vfill
+    \item<3-> And now some \emph{math:}
+      \vfill
+      \begin{theorem}[Euler's identity]
+        \begin{equation}
+          e^{i\pi}+1=0
+        \end{equation}
+      \end{theorem}
+  \end{itemize}
+  \vfill
+\end{frame}
+
+\begin{frame}[fragile]{Verbathings}
+  \begin{itemize}
+    \item Not verbatim text, vs.\ \verb+verbatim text+
+    \item The \verb+verbatim+ \emph{environment} also works:
+      \begin{verbatim}
+Lorem ipsum dolor sit amet, blah blah...
+      \end{verbatim}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]{Thank you for listening!}
+  \begin{textblock*}{0.1\textwidth}(0.2\textwidth, 0.25\textheight)
+    \LARGE \textit{Questions}
+  \end{textblock*}
+  \begin{centering}
+    \hfill\hfill
+		\begin{tikzpicture}[ultra thick,scale=0.7]
+			\draw[line width=3.5,line cap=round] (1.5,0) .. controls ++(0,4) and 
+			++(0,-2) .. (4,4)
+			to[out=90,in=0] (2,6)
+			to[out=180,in=90] 
+			(0,4);
+    \end{tikzpicture}
+    \hfill
+  \end{centering}
+
+  \begin{textblock*}{0.1\textwidth}(0.55\textwidth, 0.02\textheight)
+    \Huge \Smiley
+  \end{textblock*}
+\end{frame}
+
+\end{document}
+
+% vim: spell spelllang=en

@@ -1,0 +1,25 @@
+% Make the page a bit wider. Requires package geometry.
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% Hide section numbers.
+\setcounter{secnumdepth}{0}
+
+% Requires package sectsty.
+\allsectionsfont{\centering}
+
+% Proper format of caption text.
+% Requires package caption.
+\captionsetup{font=small, labelfont=bf}
+
+% Make section entries in TOC also have dots.
+% Requires package tocloft.
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% The package tocloft disallows \renew'ing the \tableofcontents command. So I
+% just use the subcommand that generates the TOC proper. This way, I also get
+% rid of the title of the TOC section (usually ``Contents'').
+\makeatletter
+\newcommand\mytoc{%
+  \hypersetup{linkcolor=black}%
+  \vspace{1.0em}\@starttoc{toc}}
+\makeatother

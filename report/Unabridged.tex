@@ -1,0 +1,32 @@
+\documentclass[a4paper,12pt,dvipsnames*]{report}
+\input{inputs/preamble}
+
+\title{
+Skeleton for \LaTeX\ articles  % main title
+}
+\author{
+  {Óscar Pereira}\fn{\texttt{\{https://, oscar@\}randomwalk.eu}.}
+}
+\date{\today}
+% --- END PREAMBLE ---
+
+\let\include\input
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Introduction}
+\label{char:intro}
+Science is cool!~\cite{Sagan}. But lots of people don't get it\ldots~\cite{Feynman74}.
+
+% The \newpage is needed for the References entry in TOC to indicate the proper
+% page number.
+\newpage\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{sane}
+\bibliography{sources}
+\end{document}
+
+% vim: spell spelllang=en

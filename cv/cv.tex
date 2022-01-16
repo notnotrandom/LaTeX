@@ -1,0 +1,186 @@
+% My CV's .tex file. Inspired by this one:
+% http://www.danielmathews.info/about-me
+%
+% A pdf version (probably with outdated information, but with the
+% same style) can be found here:
+% https://randomwalk.eu/media/OscarPereiraCV.pdf
+%
+% NOTA BENE: this is an OUTDATED version of my CV, to illustrate
+% the LaTeX structure only.
+%
+\documentclass[a4paper, 10pt]{extarticle}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+
+\input{inputs/fonts}
+
+% Languages et al.
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setkeys{english}{variant=british}
+% \setmainlanguage{portuges}
+% END Languages et al.
+
+% This improves the quality of the PDF, but slows down the creation
+% time, so you might want to comment it until you have the final version.
+\usepackage{microtype}
+
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[usenames,dvipsnames]{xcolor}  % For MidnightBlue colour.
+\usepackage[colorlinks=true, urlcolor=MidnightBlue]{hyperref}
+
+\renewcommand\labelitemi{\fontfamily{lmr}\selectfont\textbullet}
+
+\newenvironment{topic}[1]
+   {{\noindent\large\bfseries\raisebox{0pt}[\height][1ex]{#1}\hrule\par}%
+    \begin{list}{}{%
+       \setlength{\leftmargin}{.0cm}}\item[]}
+   {\end{list}\medskip}
+
+\newenvironment{header}[1]
+   {\raggedleft{\noindent\large\bfseries\raisebox{0pt}[\height][1ex]{%
+     \Large\bfseries{\itshape Curriculum Vit\ae}\ \hspace{0.1em} --- \hspace{0.1em} #1\par}\hrule}%
+		 \begin{center}}
+		 {\end{center}\medskip}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{header}{Óscar Francisco Godinho Pereira}
+   \faHome \enskip  Postal address withheld for privacy reasons\\[0.7em]
+   \faFirefox \enskip \url{https://randomwalk.eu}%
+     \enskip \textbullet \enskip%
+     \faEnvelopeO \enskip \texttt{oscar@domain.name}%
+\end{header}
+
+\begin{topic}{Formal Education}
+  \begin{itemize}[leftmargin=*]
+    \item {\bfseries University of Minho}, Braga, Portugal.\\
+      PhD in Informatics, MAP-i Doctoral Programme, Fall 2015--present.
+    \item {\bfseries University of Minho}, Braga, Portugal.\\
+			MSc in Informatics Engineering, Fall 2013--Fall 2015. \emph{Mark}: 
+			16/20.\\
+			\hspace*{2em}\emph{Master Thesis}: Towards a Fully Algebrisable Symmetric 
+			Cryptosystem.\\
+			\hspace*{2em}\emph{Advisor}: José Manuel E.\ Valença. \emph{Mark}: 
+			18/20.\\
+			Academic performance in curricular part got him the \textbf{2013/2014 Multicert School Award}.\footnote{See 
+			\url{https://www.multicert.com/en/about-us/universities/}.}
+    \item {\bfseries University of Coimbra}, Coimbra, Portugal.\\
+			\emph{Licenciatura} (roughly a 5 year pre-Bologna BSc) in Informatics 
+			Engineering, Fall 2001--Fall 2006.
+  \end{itemize}
+\end{topic}
+
+\begin{topic}{Professional Experience}
+  \begin{itemize}[leftmargin=*]
+    \item {\bfseries University of Minho}, Braga, Portugal.\\
+			Teaching Assistant.
+			\begin{itemize}
+				\item {\scshape Fall, school year 2016/2017} -- \textbf{Cryptography and 
+					Information Security} (1st year of MSc in Informatics Engineering), 
+					and \textbf{Computational Logic} (3rd year of BSc in Computer 
+					Science). Lab classes in both cases.
+			\end{itemize}
+    \item {\bfseries AnubisNetworks}, Lisbon, Portugal.\\
+      Software Engineer (multi-class), June 2007 -- April 2013.
+      \begin{itemize}
+				\item {\scshape From October 2012} -- Moved to the Operations team. 
+					Handled SpamAssassin management and performance tunning. Developed 
+					software to partially automate some management tasks, as well as spam 
+					statistics collection and analysis.\\
+					{\scshape Requirements}: SpamAssassin, Perl, Apache, RRDTool.
+				\item {\scshape From June 2011} -- Development of \emph{myFamily} and \emph{Web 
+					Protection Service} web content filtering services. Focus on user 
+					interface and authentication.\\
+					{\scshape Requirements}: C{}\verb!++!, HTML, CSS, HTTP, tcpflow.
+				\item {\scshape From May 2009} -- Participated in the development of a distributed 
+					architecture for MPS. The purpose was to allow multi-node 
+					installations, in order to meet the scalability requirements needed by 
+					carriers and other large customers.\\
+					{\scshape Requirements}: Perl, Postfix, LDAP.
+				\item {\scshape From June 2007} -- Implemented the Reports 
+					module of the \emph{Mail Protection 
+					System}\textsuperscript{\texttrademark} appliance (MPS)---Anubis' 
+					flagship product. Redesigned the latter's database to support that 
+					module---and to begin separating business logic from underlying system 
+					actions. Also became the \emph{de facto} maintainer of the web 
+					interface, during this period.\\
+					{\scshape Requirements}: Perl, Apache, MySQL.
+      \end{itemize}
+  \end{itemize}
+\end{topic}
+
+\begin{topic}{Technical Skills}
+  {$\rhd$\ \ \bfseries \scshape Programming Languages}
+  \begin{itemize}[leftmargin=*]
+    \item{\bfseries Imperative}: \emph{proficient}: C, Perl; \emph{experienced}: C{}\verb!++!, Python;
+      \emph{basic skills}: Java, Javascript/JQuery, Vim script.
+    \item{\bfseries Functional}: \emph{basic skills}: Common Lisp.
+    \item{\bfseries Markup}: \emph{proficient}: HTML, CSS, \LaTeX, Markdown; \emph{basic skills}: UML.
+  \end{itemize}
+	\newpage % obviously, comment this if unneeded
+  {$\rhd$\ \ \bfseries \scshape Operating Systems}
+  \begin{itemize}[leftmargin=*]
+		\item{\bfseries GNU/Linux}: Began experimenting different distributions in 2000; became a regular user circa 2005.
+      \begin{itemize}
+				\item Proficient \textsc{Arch Linux} user (current distribution of choice for personal computers).
+				\item Experienced with \textsc{Debian} and \textsc{Ubuntu Server} (mainly for small-network servers).
+      \end{itemize}
+		\item{\bfseries Microsoft Windows}: Last version regularly used was XP (SP3). Nowadays, occasionally fires up Win 10, to play the occasional computer game.
+  \end{itemize}
+  {$\rhd$\ \ \bfseries \scshape Miscellaneous Software}\\[1em]
+	\begin{minipage}{0.5\textwidth}
+		\begin{itemize}
+			% see comment at header for \phantom...
+			\item{\bfseries Text Editors}: Vim (proficient).\\\phantom{xpto}
+			\item{\bfseries Mathematics}: GNUplot, SageMath, \texttt{libgmp}.
+		\end{itemize}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\begin{itemize}
+			\item{\bfseries Network}: Open\{SSH,SSL\}, tcpflow, iptables, RRDTool, GnuPG.
+			\item{\bfseries Databases}: MySQL, SQLite, PostgreSQL.
+		\end{itemize}
+	\end{minipage}
+\end{topic}
+
+\begin{topic}{Languages}
+  {\hspace*{2em} \slshape \small \textbf{Common European Framework of Reference for Languages} 
+	(\href{http://en.wikipedia.org/wiki/Common\_European\_Framework\_of\_Reference\_for\_Languages#Common\_reference\_levels}{CEFRL}) 
+	levels given for non-native idioms.}
+  \begin{itemize}[leftmargin=*]
+    \item {\bfseries Portuguese}: native language. (\emph{Note: European Portuguese})
+    \item {\bfseries English}: fluent, both written (C1) and spoken (C1).
+    \item {\bfseries Spanish}: basic writing skills (A2) but fluent speaker (B2).
+  \end{itemize}
+\end{topic}
+
+\begin{topic}{Additional Information}
+  {\hspace*{2em} \itshape ``Extras'' from Academia}
+  \begin{itemize}[leftmargin=*]
+    \item {\bfseries Extended listings}. To keep the CV short, some listings are omitted;\\
+      they are available at \url{https://randomwalk.eu/cv/}.
+  \end{itemize}
+  {\hspace*{2em} \itshape Informal Education / Professional Development}
+  \begin{itemize}[leftmargin=*]
+    \item {\bfseries Cryptography I}, Stanford University, 2012.\\
+      Coursera Online Platform -- \url{http://www.crypto-class.org}. \emph{Grade:} 98\%.
+    \item {\bfseries Curso Especial de Empresa}, (employer-sponsored Spanish language training), 2008--2009.\\
+			Instituto Cervantes de Lisboa. \emph{Grade:} Sobresaliente (9 out of 10).
+  \end{itemize}
+  {\hspace*{2em} \itshape Miscellanea}  
+  \begin{itemize}[leftmargin=*]
+    \item{Outdoor sports enthusiast---mainly surf and football.}
+    \item{Enjoys recreational---and often not-so-recreational---mathematics, as well as physics (and chess).}
+    \item{Participated in the 2003 and 2004 editions of \emph{Minho Campus Party} (Portugal's first large scale LAN party!).}
+		\item Writes at \url{https://randomwalk.eu/}. Paraphrasing the Nobel prize winning physicist Richard Feynman: \emph{to explain, one must first understand}. Writing being mostly about the former, it provides a strong incentive to put in the effort needed to achieve the latter. Besides, writing helps one to become a better---and faster!---reader.
+    \item The above notwithstanding, he chronically tends to accumulate more books than what he is able to read.
+    \item{Full Portuguese driving license---Category B, passenger light vehicles.}
+  \end{itemize}
+\end{topic}
+\end{document}
+
+% vim: spell spelllang=en

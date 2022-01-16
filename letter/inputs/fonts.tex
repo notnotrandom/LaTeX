@@ -1,0 +1,23 @@
+% Set up FONTS to use.
+
+\usepackage{fontspec} % For \setmainfont.
+\usepackage[bitstream-charter]{mathdesign} % For math font.
+
+% Customise \mathcal.
+\DeclareSymbolFont{usualmathcal}{OMS}{cmsy}{m}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{usualmathcal}
+
+% Customise \mathbb.
+\DeclareSymbolFont{mpazo}{U}{fplmbb}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbb}{mpazo}
+
+\setmainfont[%
+  Path=$HOME/.fonts/truetype/ ,
+  Extension      = .ttf       ,
+  UprightFont    = *-R        ,
+  ItalicFont     = *-I        ,
+  BoldFont       = *-B        ,
+  BoldItalicFont = *-BI       ,
+  Scale=0.9 ,
+]{CharisSIL}
+\defaultfontfeatures[CharisSIL]{Script=latn, Ligatures=TeX}

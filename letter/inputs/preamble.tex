@@ -1,0 +1,55 @@
+\usepackage{ifthen}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% Make the page a bit wider. Requires package geometry.
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\pdfpagewidth 210mm
+\pdfpageheight 297mm
+\pagestyle{empty}
+
+\newcommand{\setvar}[2]{%
+  \ifthenelse{\equal{#1}{address}}{\address{#2}}{}
+  \ifthenelse{\equal{#1}{closing}}{\renewcommand*{\closing}{#2}}{}
+  \ifthenelse{\equal{#1}{date}}{\date{#2}}{}
+  \ifthenelse{\equal{#1}{recipient}}{\newcommand{\recipient}{#2}}{}
+  \ifthenelse{\equal{#1}{sender}}{\newcommand{\sender}{#2}}{}
+  \ifthenelse{\equal{#1}{subject}}{\newcommand{\subject}{#2}}{}}
+
+% Reorganise the header: sender and receiver information.
+\makeatletter
+\renewcommand*{\opening}[1]{\ifx\@empty\fromaddress
+  \thispagestyle{firstpage}%
+    {\raggedleft\@date\par}%
+  \else  % We have from address.
+    \thispagestyle{empty}%
+    {\begin{tabular}{@{}l@{}}\ignorespaces%
+      \fromaddress%
+      \end{tabular}%
+      \par\nopagebreak%
+      \vspace{1.0\parskip}%
+      \raggedright\@date\par}%
+  \fi%
+  \vspace{-2.4\baselineskip}%
+  \vspace{-1\parskip}%
+  {\hspace{0.55\textwidth}\begin{tabular}{@{}l@{}}\ignorespaces
+    \toname\\\toaddress
+  \end{tabular}\par}%
+  \vspace{\parskip}%
+  \begin{center}\textbf{\subject}\end{center}%
+  % \vspace{2\parskip}%
+  #1\par\nobreak}
+\makeatother
+
+\newcommand{\theend}{%
+  {\hspace{0.50\textwidth}\begin{tabular}{@{}c@{}}\ignorespaces
+    \closing\\[3.5em]
+    \fromname{\sender}\end{tabular}}}
+
+% The end, with a Custom Signature (cs).
+\newcommand{\theendcs}{%
+  {\hspace{0.50\textwidth}\begin{tabular}{@{}c@{}}\ignorespaces
+    \closing\\
+    \fromsig{\includegraphics[scale=0.2]{oscar_sig.pdf}}\\[-2.5em]
+    \fromname{\sender}\end{tabular}}}

@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!*.bib
+!*.md
+!*.pdf
+!*.sh
+!*.tex
+
+# ...even if they are in subdirectories
+!*/
+
+# But do ignore *.bib files in the build dir, as they are just a symlinks.
+build/*.bib

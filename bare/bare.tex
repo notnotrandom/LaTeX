@@ -1,0 +1,29 @@
+\documentclass[a4paper,12pt,dvipsnames*]{article}
+
+\input{inputs/fonts}
+
+\newcommand{\emd}{\textemdash}
+\newcommand{\fn}[1]{\footnote{#1}}
+
+\usepackage{parskip}
+\usepackage{url} % For making urls clickable.
+
+\usepackage{xcolor} % For MidnightBlue colour!
+\providecolors{MidnightBlue}
+
+% hyperref must be the last package loaded, so place your own packages after
+% this line!
+
+\usepackage[colorlinks=true,
+            hyperfootnotes=false,
+            linkcolor=MidnightBlue,
+            urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+
+\section*{Some topic}
+  I use this bare template for writing simple notes. Url's will be clickable and highlighted, but that's about all the fancy stuff you get!
+
+\end{document}
+
+% vim: spell spelllang=en

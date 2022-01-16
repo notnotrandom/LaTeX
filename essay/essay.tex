@@ -1,0 +1,37 @@
+\documentclass[a4paper,12pt,dvipsnames*]{article}
+\input{inputs/preamble}
+
+% \hypersetup{linkcolor=black}
+% \renewcommand*{\tableofcontents}{}
+\title{
+Write, or wrong?
+}
+\author{
+  Óscar Pereira
+}
+
+% This negative space is required to avoid having too much space between the
+% title of the document and the title of the first section.
+\date{\vspace{-4em}}
+% --- END PREAMBLE ---
+
+\begin{document}
+
+\maketitle
+\fnnosym{\emph{Date:} \today. \emph{Contact information:} \texttt{\{https://, oscar@\}randomwalk.eu}.}
+
+\mytoc
+
+\section{Introduction}
+  \label{sec:intro}
+  Something less technical about Feynman~\cite{Feynman74} and Sagan~\cite{Sagan}.
+
+  To write an essay with just the title (i.e., without TOC and section titles), comment out the \verb+\mytoc+ line, and replace the name of the section above (``Introduction'') with \verb+\vspace{-1em}+.
+
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{sane}
+\bibliography{sources}
+\end{document}
+
+% vim: spell spelllang=en
