@@ -16,6 +16,11 @@ texcmd="xelatex"
 texcmdopts="-halt-on-error --interaction=batchmode --shell-escape"
 debug_texcmdopts="--interaction=errorstopmode --shell-escape --output-directory=${build_dir}"
 
+# Colours.
+SUCCESS='\033[0;34m'
+ERROR='\033[0;31m'
+NC='\033[0m' # No Color
+
 function clean() {
 
   if [[ -d "$build_dir" ]]; then
@@ -32,12 +37,13 @@ function clean() {
 
 # A normal LaTeX compile.
 function compile() {
-  ${texcmd} ${texcmdopts} --output-directory="$build_dir" "$1"
+  echo -n "$0: Compiling..."
+  ${texcmd} ${texcmdopts} --output-directory="$build_dir" "$1" > /dev/null
   if [[ $? -ne 0 ]]; then
-    echo "Compile of ${name}.tex file was not successful!"
+    echo -e "Compile of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
     exit 1
   fi
-  echo "" # Print a newline (SyncTeX doesn't).
+  echo -e "${SUCCESS}Success${NC}."
 }
 
 # A normal (single) LaTeX compile.
@@ -56,7 +62,7 @@ function final_document() {
 
 function symlinks_rebuild() {
   if [[ ! -d "$build_dir" ]]; then
-    echo "Build dir does not exist! Run clean() to fix it."
+    echo "$0: Build dir does not exist! Run clean() to fix it."
     return 1
   fi
 

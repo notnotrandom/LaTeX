@@ -1,6 +1,5 @@
 #! /bin/bash
 
-# $name is one of: cv, bare, or standalone.
 name="standalone"
 
 ##### VARIABLES THAT THE USER CAN SET #####
@@ -16,6 +15,11 @@ build_dir="build"
 texcmd="xelatex"
 texcmdopts="-halt-on-error --interaction=batchmode --shell-escape"
 debug_texcmdopts="--interaction=errorstopmode --shell-escape --output-directory=${build_dir}"
+
+# Colours.
+SUCCESS='\033[0;34m'
+ERROR='\033[0;31m'
+NC='\033[0m' # No Color
 
 function clean() {
 
@@ -33,11 +37,13 @@ function clean() {
 
 # A normal LaTeX compile.
 function compile() {
+  echo -n "$0: Compiling..."
   ${texcmd} ${texcmdopts} --output-directory="$build_dir" "$1" > /dev/null
   if [[ $? -ne 0 ]]; then
-    echo "$0: Compile of ${name}.tex file was not successful!"
+    echo -e "Compile of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
     exit 1
   fi
+  echo -e "${SUCCESS}Success${NC}."
 }
 
 # A normal (single) LaTeX compile.
@@ -78,9 +84,7 @@ function main() {
   # If no arguments given, do a normal build;
   # - argument is debug: do debug build;
   if [[ $# -eq 0 ]] ; then
-    echo -n "$0: Compiling... "
     compile "$name"
-    echo "Success."
   elif [[ $# -eq 1 && "$1" == "clean" ]] ; then
     clean
   elif [[ $# -eq 1 && "$1" == "debug" ]] ; then
