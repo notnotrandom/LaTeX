@@ -46,7 +46,7 @@ function big_build() {
   compile "$name" "$build_dir"
   # If the compile failed, notify the user and quit.
   if [[ $? -ne 0 ]]; then
-    echo "Compilation of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+    echo -e "Compilation of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
     return 1
   fi
 
@@ -59,7 +59,7 @@ function big_build() {
     compile "$name" "$build_dir" && compile "$name" "$build_dir"
     # If one of the compile runs failed, notify the user and quit.
     if [[ $? -ne 0 ]]; then
-      echo "(2nd or 3rd) compile run of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+      echo -e "(2nd or 3rd) compile run of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
       return 1
     fi
 
@@ -77,7 +77,7 @@ function big_build() {
       compile "$name" "$build_dir" && compile "$name" "$build_dir"
       # If one of the compile runs failed, notify the user and quit.
       if [[ $? -ne 0 ]]; then
-        echo "(2nd or 3rd) compile run of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+        echo -e "(2nd or 3rd) compile run of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
         return 1
       fi
       # Some \cite or \nocite entries have been found -- hence more three compiles.
@@ -121,11 +121,11 @@ function big_build() {
             compile "$name" "$build_dir" && \
             compile "$name" "$build_dir"
             if [[ $? -ne 0 ]]; then
-              echo "Compile of ${name}.tex, after building bibliography (SECOND TIME), was ${ERROR}NOT SUCCESSFUL${NC}!"
+              echo -e "Compile of ${name}.tex, after building bibliography (SECOND TIME), was ${ERROR}NOT SUCCESSFUL${NC}!"
               return 1
             fi
           else
-            echo "Building bibliography (regular copy, SECOND TIME) file was ${ERROR}NOT SUCCESSFUL${NC}!"
+            echo -e "Building bibliography (regular copy, SECOND TIME) file was ${ERROR}NOT SUCCESSFUL${NC}!"
             return 1
           fi
         fi
@@ -136,7 +136,7 @@ function big_build() {
         compile "$name" "$build_dir"
 # If this last compile failed, notify the user and quit.
         if [[ $? -ne 0 ]]; then
-          echo "Last compile of ${name}.tex was ${ERROR}NOT SUCCESSFUL${NC}!"
+          echo -e "Last compile of ${name}.tex was ${ERROR}NOT SUCCESSFUL${NC}!"
           return 1
         fi
         echo -e "${SUCCESS}Success${NC}."
@@ -149,7 +149,7 @@ function big_build() {
           echo "There are still undefined citations: $undef_refs!!"
         fi
       else
-        echo "Building bibliography (first run, regular copy) file was ${ERROR}NOT SUCCESSFUL${NC}!"
+        echo -e "Building bibliography (first run, regular copy) file was ${ERROR}NOT SUCCESSFUL${NC}!"
         return 1
       fi
     fi
@@ -193,7 +193,7 @@ function small_build() {
   echo -n "$0: Compiling... "
   compile "$name" "$build_dir" # compile() returns the $? of the LaTeX command. See Note (1).
   if [[ $? -ne 0 ]]; then
-    echo "Compile of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+    echo -e "Compile of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
     return 1
   else
     echo -e "${SUCCESS}Success${NC}."
