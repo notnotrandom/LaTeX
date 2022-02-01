@@ -10,35 +10,36 @@
 \pagestyle{empty}
 
 \newcommand{\setvar}[2]{%
-  \ifthenelse{\equal{#1}{address}}{\address{#2}}{}
   \ifthenelse{\equal{#1}{closing}}{\renewcommand*{\closing}{#2}}{}
   \ifthenelse{\equal{#1}{date}}{\date{#2}}{}
   \ifthenelse{\equal{#1}{recipient}}{\newcommand{\recipient}{#2}}{}
   \ifthenelse{\equal{#1}{sender}}{\newcommand{\sender}{#2}}{}
+  \ifthenelse{\equal{#1}{senderaddr}}{\address{#2}}{}
   \ifthenelse{\equal{#1}{subject}}{\newcommand{\subject}{#2}}{}}
 
 % Reorganise the header: sender and receiver information.
 \makeatletter
-\renewcommand*{\opening}[1]{\ifx\@empty\fromaddress
-  \thispagestyle{firstpage}%
-    {\raggedleft\@date\par}%
+\renewcommand*{\opening}[1]{\thispagestyle{empty}%
+  \ifx\@empty\fromaddress
+    {\hspace{0.50\textwidth}\begin{tabular}{@{}l@{}}\ignorespaces
+      \toname\\\toaddress
+    \end{tabular}\par}%
+    {\raggedright\@date\par}% In this case, the date may also include location.
   \else  % We have from address.
-    \thispagestyle{empty}%
     {\begin{tabular}{@{}l@{}}\ignorespaces%
       \fromaddress%
       \end{tabular}%
       \par\nopagebreak%
       \vspace{1.0\parskip}%
       \raggedright\@date\par}%
+    \vspace{-2.4\baselineskip}%
+    \vspace{-1\parskip}%
+    {\hspace{0.50\textwidth}\begin{tabular}{@{}l@{}}\ignorespaces
+      \toname\\\toaddress
+    \end{tabular}\par}%
   \fi%
-  \vspace{-2.4\baselineskip}%
-  \vspace{-1\parskip}%
-  {\hspace{0.55\textwidth}\begin{tabular}{@{}l@{}}\ignorespaces
-    \toname\\\toaddress
-  \end{tabular}\par}%
   \vspace{\parskip}%
   \begin{center}\textbf{\subject}\end{center}%
-  % \vspace{2\parskip}%
   #1\par\nobreak}
 \makeatother
 
