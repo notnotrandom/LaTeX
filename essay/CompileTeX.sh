@@ -11,7 +11,6 @@ do_bib="true"
 verbose="false"
 ###########################################
 
-# $name is one of: essay, llncs or presentation.
 name="essay"
 
 # The final name of the .pdf file (without extension). Defaults to original
