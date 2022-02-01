@@ -1,0 +1,15 @@
+% Make the page a bit wider. Requires package geometry.
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% Proper format of caption text.
+% Requires package caption.
+\captionsetup{font=small, labelfont=bf}
+
+% For runin abstract, with a specified margin.
+\renewenvironment{abstract}
+{\vspace{2.5em}%
+  \list{}{
+    \setlength{\leftmargin}{1.5cm}%
+    \setlength{\rightmargin}{\leftmargin}%
+  }\item\relax\par\noindent\textbf{\abstractname.}\ \ignorespaces\small}
+{\par\medskip}
