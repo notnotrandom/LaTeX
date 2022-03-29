@@ -21,10 +21,10 @@
 \makeatletter
 \renewcommand*{\opening}[1]{\thispagestyle{empty}%
   \ifx\@empty\fromaddress
-    {\hspace{0.50\textwidth}\begin{tabular}{@{}l@{}}\ignorespaces
+    {\raggedright\@date\par}% In this case, the date may also include location.
+    {\vspace{1.5em}\hspace{0.50\textwidth}\begin{tabular}{@{}l@{}}\ignorespaces
       \toname\\\toaddress
     \end{tabular}\par}%
-    {\raggedright\@date\par}% In this case, the date may also include location.
   \else  % We have from address.
     {\begin{tabular}{@{}l@{}}\ignorespaces%
       \fromaddress%
