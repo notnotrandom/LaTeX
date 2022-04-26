@@ -6,9 +6,13 @@
 % To indicate current chapter name and number in the header.
 % Requires package fancyhdr.
 \pagestyle{fancy}
-\renewcommand*{\chaptermark}[1]{\markboth{#1}{#1}}
+\cfoot{} % Get rid of the page number in the footer.
+\makeatletter
+\renewcommand{\chaptermark}[1]{\markboth{%
+  \ifnum\c@secnumdepth > \m@ne \@chapapp\ \thechapter\ --\ \fi #1}{}}
+\makeatother
 \fancyhead[R]{}
-\fancyhead[L]{\chaptername\ \thechapter\ --\ \leftmark \hfill \thepage}
+\fancyhead[L]{\fontsize{10}{12}\selectfont\leftmark \hfill \thepage}
 
 % Remove original page numbers (bottom, centered).
 \cfoot{}
