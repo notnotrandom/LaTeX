@@ -156,6 +156,10 @@ function big_build() {
   fi
 }
 
+function check_warnings() {
+  grep 'LaTeX Warning' "build/${name}.log"
+}
+
 function clean() {
   if [[ -d "$build_dir" ]]; then
     echo "Wiping contents of ${build_dir} (except PDF files)"
@@ -239,6 +243,8 @@ function main() {
     final_document
   elif [[ $# -eq 1 && "$1" == "symlinks" ]] ; then
     dir_and_symlinks_rebuild
+  elif [[ $# -eq 1 && "$1" == "warnings" ]] ; then
+    check_warnings
   else
     echo "Unknown option(s): $@"
     exit 1

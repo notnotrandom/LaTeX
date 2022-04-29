@@ -21,8 +21,11 @@ SUCCESS='\033[0;34m'
 ERROR='\033[0;31m'
 NC='\033[0m' # No Color
 
-function clean() {
+function check_warnings() {
+  grep 'LaTeX Warning' "build/${name}.log"
+}
 
+function clean() {
   if [[ -d "$build_dir" ]]; then
     echo "Wiping contents of ${build_dir} (except PDF files)"
     cd "${build_dir}" && rm -rf $(ls | grep -v ".pdf") && cd ..
@@ -93,6 +96,8 @@ function main() {
     final_document
   elif [[ $# -eq 1 && "$1" == "symlinks" ]] ; then
     symlinks_rebuild
+  elif [[ $# -eq 1 && "$1" == "warnings" ]] ; then
+    check_warnings
   else
     echo "Unknown option(s): $@"
     exit 1

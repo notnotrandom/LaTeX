@@ -267,6 +267,10 @@ function big_compile_on_tmp_folder_comment_include_only() {
   return $ret
 }
 
+function check_warnings() {
+  grep 'LaTeX Warning' "build/${name}.log"
+}
+
 function clean() {
   if [[ -d "$build_dir_regular" ]]; then
     echo "Wiping contents of ${build_dir_regular} (except PDF files)"
@@ -450,6 +454,8 @@ function main() {
     unabridged_dir_and_symlinks_rebuild
   elif [[ $# -eq 1 && "$1" == "u2r" ]] ; then
     u2r
+  elif [[ $# -eq 1 && "$1" == "warnings" ]] ; then
+    check_warnings
   else
     echo "Unknown option(s): $@"
     exit 1
