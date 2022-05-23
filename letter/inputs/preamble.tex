@@ -1,7 +1,6 @@
 \usepackage{ifthen}
 \usepackage{geometry}
 \usepackage{graphicx}
-\usepackage{hyperref}
 
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
@@ -43,6 +42,15 @@
   #1\par\nobreak}
 \makeatother
 
+% For paragraph numbers.
+\newcounter{para}
+\newlength{\parnumwidth}
+\setlength{\parnumwidth}{3em}
+\newcommand{\pn}{%
+  \noindent\refstepcounter{para}%
+  \makebox[0pt][r]{\makebox[\parnumwidth][l]{\textbf{\scriptsize\thepara}}}%
+  \hspace*{\parindent}\ignorespaces}
+
 \newcommand{\theend}{%
   {\hspace{0.50\textwidth}\begin{tabular}{@{}c@{}}\ignorespaces
     \closing\\[3.5em]
@@ -54,3 +62,26 @@
     \closing\\
     \fromsig{\includegraphics[scale=0.2]{oscar_sig.pdf}}\\[-2.5em]
     \fromname{\sender}\end{tabular}}}
+
+% --- Custom Stuff ---
+
+\newcommand*{\emd}{\textemdash}
+\newcommand{\fn}[1]{\footnote{#1}}
+
+% --- End Custom Stuff ---
+
+
+% hyperref package.
+% ***NOTA BENE:*** The hyperref package if used, MUST BE THE LAST ONE included!
+%
+\usepackage{xcolor} % For MidnightBlue colour!
+\providecolors{MidnightBlue}
+\usepackage[bookmarks=true,
+            citecolor=MidnightBlue,
+            colorlinks=true,
+            hyperfootnotes=false,
+            linkcolor=MidnightBlue,
+            linktocpage=true,
+            linktoc=all,
+            pagebackref=true,
+            urlcolor=MidnightBlue]{hyperref}
