@@ -47,3 +47,13 @@
 % Proper format of caption text.
 % Requires package caption.
 \captionsetup{font=small, labelfont=bf}
+
+% --- Reduce the spacing between items in environments that use items. ---
+\let\oldenumerate\enumerate
+\let\oldenumerateend\endenumerate
+\renewenvironment{enumerate}{\oldenumerate\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\oldenumerateend}
+
+\let\olditemize\itemize
+\let\olditemizeend\enditemize
+\renewenvironment{itemize}{\olditemize\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\olditemizeend}
+% --- END Reduce the spacing between items in environments that use items. ---

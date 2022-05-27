@@ -2,6 +2,7 @@
 
 \usepackage{fontspec} % For \setmainfont.
 \usepackage[bitstream-charter]{mathdesign} % For math font.
+\renewcommand\scdefault{sc} % For smallcaps, which mathdesign screws up.
 
 % Customise \mathcal.
 \DeclareSymbolFont{usualmathcal}{OMS}{cmsy}{m}{n}
@@ -13,11 +14,11 @@
 
 \setmainfont[%
   Path=$HOME/.fonts/truetype/ ,
-  Extension      = .ttf       ,
-  UprightFont    = *-R        ,
-  ItalicFont     = *-I        ,
-  BoldFont       = *-B        ,
-  BoldItalicFont = *-BI       ,
+  Extension      = .ttf         ,
+  UprightFont    = *-Regular    ,
+  ItalicFont     = *-Italic     ,
+  BoldFont       = *-Bold       ,
+  BoldItalicFont = *-BoldItalic ,
   Scale=0.9 ,
 ]{CharisSIL}
 \defaultfontfeatures[CharisSIL]{Script=latn, Ligatures=TeX}
