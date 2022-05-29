@@ -1,57 +1,38 @@
-%
-% Load ALL Packages. Package loading order matters A LOT, and so it is very
-% dangerous to separate package loading into several different (\input'd)
-% files. It will likely make troubleshooting of errors far more difficult. So
-% just load all packages in the inputs/packages.tex file.
+% Load ALL packages, in a single place. Package loading order matters A LOT,
+% and so it is very dangerous to separate package loading into several
+% different (\input'd) files. It will likely make troubleshooting of errors far
+% more difficult. So just load all packages in the inputs/packages.tex file.
+%   The exception of course, is package hyperref -- which must always be loaded
+% last (see end of the current file).
 %
 \input{inputs/packages}
-
-% -------------------------------------------------------
-% -------------------------------------------------------
-% ------------------- CUSTOM STUFF ----------------------
-% -------------------------------------------------------
-% -------------------------------------------------------
-
-% Use this space for custom things, other than \usepackage's. If the
-% customisations are lengthy, consider putting them into their own file, to be
-% \input'd. Such files should go in the inputs/ folder.
 
 \input{inputs/fonts}
 
 \input{inputs/style}
 
-\newcommand*{\emd}{\textemdash}
-\newcommand{\fn}[1]{\footnote{#1}}
-\newcommand*{\namedparagraph}[1]{\noindent\textbf{#1}}
-\newcommand*{\ts}{\textsection}
-
 % -------------------------------------------------------
-% -------------------------------------------------------
-% ------------------- END CUSTOM STUFF ------------------
-% -------------------------------------------------------
+% Use this file for custom things, other than \usepackage's.
+\input{inputs/custom}
 % -------------------------------------------------------
 
-% Language and bibliography. Language with polyglossia must be set before
-% biblatex is used, or error ensues. But it's probably good advice with babel
-% and bibtex also.
-% For Portuguese, replace "UKenglish" with "portuges".
-\usepackage[UKenglish]{babel}
-\usepackage[comma, numbers]{natbib}
-\renewcommand*{\bibsection}{\chapter*{References}}  % Name the bib chapter References.
-\renewcommand*{\bibfont}{\footnotesize} % Use the same font size as in footnotes.
-\setlength{\bibsep}{0pt plus 0.5ex} % Smaller vertical separation between bibtems.
+% Name the bib chapter References.
+\renewcommand*{\bibsection}{\chapter*{References}}
+
+% Use the same font size for bibliography as in footnotes.
+\renewcommand*{\bibfont}{\footnotesize}
+
+% Smaller vertical separation between bibtems.
+\setlength{\bibsep}{0pt plus 0.5ex}
 
 % Make bib listing with <number><dot>.
 \makeatletter
 \renewcommand\@biblabel[1]{\textrm{#1.}}
 \makeatother
-% \renewcommand{\UrlFont}{\small\tt}
 
 % hyperref et al.
 % ***NOTA BENE:*** The hyperref package if used, MUST BE THE LAST ONE included!
 %
-\usepackage{xcolor} % For MidnightBlue colour!
-\providecolors{MidnightBlue}
 \usepackage[bookmarks=true,
             citecolor=MidnightBlue,
             colorlinks=true,
