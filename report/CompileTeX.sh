@@ -210,6 +210,14 @@ function big_build_inner() {
 # Do a big build on the regular copy; and if it succeeds, do the same for the
 # unabridged copy.
 function big_build () {
+  read -n1 -s -r -p $'Press <Enter> to continue (Ctrl-C to cancel)...' key
+  if [ "$key" = '' ]; then
+    echo
+  else
+    echo
+    return 1
+  fi
+
 # Big build for regular copy: if the main file has an \includeonly line, then we
 # first create a temp copy of the whole dir, so as to remove that command (we
 # can't do this on the main file itself, because it will likely be open for
@@ -288,25 +296,11 @@ function clean() {
     mkdir $build_dir_unabridged
   fi
 
-# Rebuilding structure of build_dirs. Begin with symlinks.
+  # Rebuilding structure of build_dirs. Begin with symlinks.
   unabridged_dir_and_symlinks_rebuild
 
-# If any .tex files are in their own custom directories, those dirs
-# must also exist in $build_dir, with the same hierarchy. See README.md for
-# more details. Handled with rsync.
-
-# In the rsync commands, the source arguments (folders) must not end with a
-# forward slash. The %%+(/) appended to $folders_to_be_rsyncd strips such
-# trailing slashes, if any. But in order for it to work, it requires the
-# extglob option. The program shopt sets it with the -s option, and unsets it
-# with -u.
-  if [[ ${#folders_to_be_rsyncd[@]} -gt 0 ]] ; then
-    shopt -s extglob
-    rsync -a --include '*/' --exclude '*' "${folders_to_be_rsyncd[@]%%+(/)}" "${build_dir_regular}"
-
-    rsync -a --include '*/' --exclude '*' "${folders_to_be_rsyncd[@]%%+(/)}" "${build_dir_unabridged}"
-    shopt -u extglob
-  fi
+  # And finish with build dir subfolders.
+  update_build_dir_subfolders
 }
 
 # A normal (single) LaTeX compile.
@@ -379,25 +373,6 @@ function u2r() {
   cp "$build_dir_unabridged/$name_unabridged".pdf "$build_dir_regular/$name".pdf
 }
 
-# Copy main .tex file as $name_unabridged, patch it to redefine all \include's
-# as \input's. This causes for \includeonly to be ignored (if it exists). Then
-# build unabridged copy in $build_dir_unabridged.
-function update_unabridged_tex_files() {
-  rm -f "${name_unabridged}.tex"
-
-# Delete any \includeonly line from ${name_unabridged}.tex. This should not be
-# necessary, as the sed below redefines \include to \input, which means that
-# \includeonly lines will be ignored. But it is possible that there will exist
-# other code that runs (or doesn't run) when an \includeonly line exists. So
-# better wipe it out, just to be sure.
-  sed -e 's/^\s*\\includeonly.*$//' "${name}.tex" > "${name_unabridged}.tex"
-
-# Insert the following line before \begin{document}:
-# \let\include\input
-  sed '/^\s*\\begin{document}/i \
-\\let\\include\\input' -i "${name_unabridged}.tex"
-}
-
 function unabridged_dir_and_symlinks_rebuild() {
   if [[ ! -d "$build_dir_regular" ]]; then
     echo "Build dir does not exist! Run clean() to fix it."
@@ -428,6 +403,44 @@ function unabridged_dir_and_symlinks_rebuild() {
   ln -sr ${sourcesname}.bib "${build_dir_unabridged}"/
 }
 
+function update_build_dir_subfolders() {
+  # If any .tex files are in their own custom directories, those dirs
+  # must also exist in $build_dir, with the same hierarchy. See README.md for
+  # more details. Handled with rsync.
+
+  # In the rsync commands, the source arguments (folders) must not end with a
+  # forward slash. The %%+(/) appended to $folders_to_be_rsyncd strips such
+  # trailing slashes, if any. But in order for it to work, it requires the
+  # extglob option. The program shopt sets it with the -s option, and unsets it
+  # with -u.
+  if [[ ${#folders_to_be_rsyncd[@]} -gt 0 ]] ; then
+    shopt -s extglob
+    rsync -a --include '*/' --exclude '*' "${folders_to_be_rsyncd[@]%%+(/)}" "${build_dir_regular}"
+
+    rsync -a --include '*/' --exclude '*' "${folders_to_be_rsyncd[@]%%+(/)}" "${build_dir_unabridged}"
+    shopt -u extglob
+  fi
+}
+
+# Copy main .tex file as $name_unabridged, patch it to redefine all \include's
+# as \input's. This causes for \includeonly to be ignored (if it exists). Then
+# build unabridged copy in $build_dir_unabridged.
+function update_unabridged_tex_files() {
+  rm -f "${name_unabridged}.tex"
+
+# Delete any \includeonly line from ${name_unabridged}.tex. This should not be
+# necessary, as the sed below redefines \include to \input, which means that
+# \includeonly lines will be ignored. But it is possible that there will exist
+# other code that runs (or doesn't run) when an \includeonly line exists. So
+# better wipe it out, just to be sure.
+  sed -e 's/^\s*\\includeonly.*$//' "${name}.tex" > "${name_unabridged}.tex"
+
+# Insert the following line before \begin{document}:
+# \let\include\input
+  sed '/^\s*\\begin{document}/i \
+\\let\\include\\input' -i "${name_unabridged}.tex"
+}
+
 #
 # *** Main function ***
 #
@@ -450,6 +463,8 @@ function main() {
     debugbuild
   elif [[ $# -eq 1 && "$1" == "final" ]] ; then
     final_document
+  elif [[ $# -eq 1 && "$1" == "subdirs" ]] ; then
+    update_build_dir_subfolders
   elif [[ $# -eq 1 && "$1" == "symlinks" ]] ; then
     unabridged_dir_and_symlinks_rebuild
   elif [[ $# -eq 1 && "$1" == "u2r" ]] ; then

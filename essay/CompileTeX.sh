@@ -40,6 +40,13 @@ NC='\033[0m' # No Color
 # some thorny cases three are required, so...). If using bib is not set, just
 # compile three times.
 function big_build() {
+  read -n1 -s -r -p $'Press <Enter> to continue (Ctrl-C to cancel)...' key
+  if [ "$key" = '' ]; then
+    echo
+  else
+    echo
+    return 1
+  fi
 
   # First, run compile(). 
   echo "$0: Compile #1..."
@@ -186,6 +193,21 @@ function debugbuild() {
   return $?
 }
 
+function dir_and_symlinks_rebuild() {
+  if [[ ! -d "$build_dir" ]]; then
+    echo "$0: Build dir does not exist! Run clean() to fix it."
+    return 1
+  fi
+
+  rm -f "${name}.pdf"
+  rm -f "${name}.synctex.gz"
+  rm -f "${build_dir}/${sourcesname}.bib"
+
+  ln -sr "${build_dir}/${name}.pdf" .
+  ln -sr "${build_dir}/${name}.synctex.gz" .
+  ln -sr ${sourcesname}.bib "${build_dir}"/
+}
+
 function final_document() {
   clean
   big_build
@@ -202,21 +224,6 @@ function small_build() {
   else
     echo -e "${SUCCESS}Success${NC}."
   fi
-}
-
-function dir_and_symlinks_rebuild() {
-  if [[ ! -d "$build_dir" ]]; then
-    echo "$0: Build dir does not exist! Run clean() to fix it."
-    return 1
-  fi
-
-  rm -f "${name}.pdf"
-  rm -f "${name}.synctex.gz"
-  rm -f "${build_dir}/${sourcesname}.bib"
-
-  ln -sr "${build_dir}/${name}.pdf" .
-  ln -sr "${build_dir}/${name}.synctex.gz" .
-  ln -sr ${sourcesname}.bib "${build_dir}"/
 }
 
 #
