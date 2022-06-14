@@ -3,9 +3,9 @@
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
 
-% \nn{Your note here.}
-% Use endnotes for regular chapters, and footnotes for appendix.
-% \let\nn\endnote
+% Use endnotes for regular chapters, and footnotes for appendix. Also,
+% \footnote{text} produces a footnote, using a symbol, to avoid confusion with
+% endnotes.
 \let\oldappendix\appendix
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 \renewcommand{\appendix}{\let\nn\footnote\oldappendix}
