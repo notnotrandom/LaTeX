@@ -369,6 +369,57 @@ function small_build() {
   fi
 }
 
+function small_double_build() {
+  echo -n "$0: Compiling... "
+  compile "$name" "$build_dir_regular" # compile() returns the $? of the LaTeX command. See Note (1).
+  if [[ $? -ne 0 ]]; then
+    echo -e "Compile of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+    return 1
+  else
+    echo -e "${SUCCESS}Success${NC}."
+  fi
+
+  echo -n "$0: Compiling... "
+  compile "$name" "$build_dir_regular"
+  if [[ $? -ne 0 ]]; then
+    echo -e "Compile of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+    return 1
+  else
+    echo -e "${SUCCESS}Success${NC}."
+  fi
+
+# If compile was successful, and we are using \includeonly, then update
+# unabridged copy.
+  if [[ "$(do_we_have_includeonly)" == "true" ]]; then
+    update_unabridged_tex_files
+
+    echo -n "$0: Compiling unabridged version... "
+    compile "${name_unabridged}" "$build_dir_unabridged"
+    if [[ $? -ne 0 ]]; then
+      echo -e "Compile of ${name_unabridged}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+      exit 1
+    else
+      echo -e "${SUCCESS}Success${NC}."
+    fi
+
+    echo -n "$0: Compiling unabridged version... "
+    compile "${name_unabridged}" "$build_dir_unabridged"
+    if [[ $? -ne 0 ]]; then
+      echo -e "Compile of ${name_unabridged}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+      exit 1
+    else
+      echo -e "${SUCCESS}Success${NC}."
+    fi
+  else
+# If \includeonly is not used, then unabridged version is just the normal
+# version, so just copy the $name.pdf file to $name_unabridged.pdf.
+    echo -e "$0: \includeonly not used, so unabridged copy == pdf file copy."
+
+    cp "${build_dir_regular}/${name}.pdf" "${build_dir_unabridged}/${name_unabridged}.pdf"
+    cp "${build_dir_regular}/${name}.synctex.gz" "${build_dir_unabridged}/${name_unabridged}.synctex.gz"
+  fi
+}
+
 function u2r() {
   cp "$build_dir_unabridged/$name_unabridged".pdf "$build_dir_regular/$name".pdf
 }
@@ -461,6 +512,8 @@ function main() {
     clean
   elif [[ $# -eq 1 && "$1" == "debug" ]] ; then
     debugbuild
+  elif [[ $# -eq 1 && "$1" == "double" ]] ; then
+    small_double_build
   elif [[ $# -eq 1 && "$1" == "final" ]] ; then
     final_document
   elif [[ $# -eq 1 && "$1" == "subdirs" ]] ; then
