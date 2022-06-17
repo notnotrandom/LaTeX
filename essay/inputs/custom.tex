@@ -1,0 +1,17 @@
+% These are staple commands of my LaTeX diet.
+\newcommand*{\emd}{\textemdash}
+\newcommand{\fn}[1]{\footnote{#1}}
+\newcommand*{\namedparagraph}[1]{\noindent\textbf{#1}}
+
+% For a footnote with no symbol, usually in page 1, containing the date the
+% authors' contacts,  etc.
+\newcommand\fnnosym[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+% ---------------------------------------------------------
+% Append new stuff below. Suggestion: begin with \input's.
+% ---------------------------------------------------------
