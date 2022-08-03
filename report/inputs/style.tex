@@ -42,6 +42,9 @@
 % the Notes' chapter (this is only relevant when said chapter has more than one
 % page...)
 \setenotez{list-heading=\chapter*{#1\markboth{#1}{}}}
+
+% Left-align start of note with the respective chapter heading.
+\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
 % --- END Setup enotez package ---
 
 % Proper format of caption text.

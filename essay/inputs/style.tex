@@ -21,7 +21,8 @@
 \makeatletter
 \newcommand\mytoc{%
   \hypersetup{linkcolor=black}%
-  \vspace{1.0em}\@starttoc{toc}}
+  \vspace{1.0em}\@starttoc{toc}%
+  \hypersetup{linkcolor=MidnightBlue}}
 \makeatother
 
 % --- Reduce the spacing between items in environments that use items. ---
@@ -33,3 +34,17 @@
 \let\olditemizeend\enditemize
 \renewenvironment{itemize}{\olditemize\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\olditemizeend}
 % --- END Reduce the spacing between items in environments that use items. ---
+
+
+% --- Setup enotez package ---
+\setenotez{
+  backref=true,
+  totoc=section,
+  counter-format=arabic,
+  reset=true,
+  split=false,
+}
+
+% Left-align start of note with the respective chapter heading.
+\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
+% --- END Setup enotez package ---
