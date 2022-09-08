@@ -5,7 +5,7 @@
 Skeleton for \LaTeX\ articles  % main title
 }
 \author{
-  {Óscar Pereira}\nn{\texttt{\{https://, oscar@\}randomwalk.eu}.}
+  {Óscar Pereira}\footnote{\texttt{\{https://, oscar@\}randomwalk.eu}.}
 }
 \date{\today}
 % --- END PREAMBLE ---
@@ -19,11 +19,14 @@ Skeleton for \LaTeX\ articles  % main title
 
 \chapter{Introduction}
 \label{chap:intro}
-Science is cool!~\cite{Sagan}. But lots of people don't get it\ldots~\cite{Feynman74}.
+Science is cool!~\cite{Sagan}. But lots of people don't get it\ldots~\cite{Feynman74}. And now some end note.\nn{The promised end note.}
 
-% The \newpage is needed for the References entry in TOC to indicate the proper
-% page number.
-\newpage\phantomsection
+\clearpage
+\phantomsection
+\printendnotes
+
+\clearpage
+\phantomsection
 \addcontentsline{toc}{chapter}{References}
 \bibliographystyle{sane}
 \bibliography{sources}
