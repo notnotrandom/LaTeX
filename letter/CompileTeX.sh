@@ -13,7 +13,7 @@ finalname="${name}.FINAL"
 build_dir="build"
 
 texcmd="xelatex"
-texcmdopts="-halt-on-error --interaction=batchmode --shell-escape"
+texcmdopts="-halt-on-error --interaction=batchmode --shell-escape --synctex=1"
 debug_texcmdopts="--interaction=errorstopmode --shell-escape --output-directory=${build_dir}"
 
 # Colours.
@@ -70,8 +70,10 @@ function symlinks_rebuild() {
   fi
 
   rm -f "${name}.pdf"
-
   ln -sr "${build_dir}/${name}.pdf" .
+
+  rm -f "${name}.synctex.gz"
+  ln -sr "${build_dir}/${name}.synctex.gz" .
 }
 
 #
