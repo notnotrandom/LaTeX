@@ -420,10 +420,6 @@ function small_double_build() {
   fi
 }
 
-function u2r() {
-  cp "$build_dir_unabridged/$name_unabridged".pdf "$build_dir_regular/$name".pdf
-}
-
 function unabridged_dir_and_symlinks_rebuild() {
   if [[ ! -d "$build_dir_regular" ]]; then
     echo "Build dir does not exist! Run clean() to fix it."
@@ -520,8 +516,6 @@ function main() {
     update_build_dir_subfolders
   elif [[ $# -eq 1 && "$1" == "symlinks" ]] ; then
     unabridged_dir_and_symlinks_rebuild
-  elif [[ $# -eq 1 && "$1" == "u2r" ]] ; then
-    u2r
   elif [[ $# -eq 1 && "$1" == "warnings" ]] ; then
     check_warnings
   else
