@@ -3,49 +3,7 @@
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
 
-% Use endnotes for regular chapters, and footnotes for appendix. Also,
-% \footnote{text} produces a footnote, using a symbol, to avoid confusion with
-% endnotes.
-\let\oldappendix\appendix
-\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
-\renewcommand{\appendix}{\let\nn\footnote\oldappendix}
-
-% --- Setup enotez package ---
-\setenotez{
-  backref=true,
-  totoc=chapter,
-  counter-format=arabic,
-  reset=true,
-  split=chapter,
-  split-title={<ref>. <title>}
-}
-
-\NewSplitTitleTag{title}{\nameref*{ch:<split-level-id>}}
-
-% Requires package letltxmacro. Create a counter for numbered chapters, to be
-% able to show chapter names in Notes' listing.
-\LetLtxMacro\origchapter\chapter
-\RenewDocumentCommand\chapter{som}{%
-  \IfBooleanTF{#1}
-    {% starred chapter, no label then
-      \origchapter*{#3}%
-    }
-    {% else add a label
-      \IfNoValueTF{#2}
-        {\origchapter{#3}}
-        {\origchapter[#2]{#3}}%
-      \expanded{\noexpand\label{ch:\thechapter}}%
-    }%
-}
-
-% This is needed before setting up fancyhdr, to get the page header right in
-% the Notes' chapter (this is only relevant when said chapter has more than one
-% page...)
-\setenotez{list-heading=\chapter*{#1\markboth{#1}{}}}
-
-% Left-align start of note with the respective chapter heading.
-\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
-% --- END Setup enotez package ---
+\input{inputs/enotez}
 
 % Proper format of caption text.
 % Requires package caption.
