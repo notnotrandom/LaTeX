@@ -8,10 +8,6 @@
 
 % To detect if a given (non-starred) chapter is, or not, an appendix.
 \newif\ifinappendix% Default is \inappendixfalse
-
-% Use endnotes for regular chapters, and footnotes for appendix. Also,
-% \footnote{text} produces a footnote, using a symbol, to avoid confusion with
-% endnotes.
 \let\oldappendix\appendix% Store \appendix
 \renewcommand{\appendix}{% Update \appendix
   \oldappendix% Default \appendix
