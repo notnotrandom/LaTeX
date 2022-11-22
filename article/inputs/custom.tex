@@ -3,11 +3,12 @@
 \newcommand*{\nmd}[1]{\noindent\textbf{#1}}
 \newcommand{\nn}[1]{\footnote{#1}}
 
-% For a footnote with no symbol, usually in page 1, containing the date the
-% authors' contacts,  etc.
-\newcommand\fnnosym[1]{%
+% For a footnote with a symbol, usually in page 1, containing the date the
+% authors' contacts, etc.
+\newcommand\fnsymb[1]{%
   \begingroup
-  \renewcommand\thefootnote{}\footnote{#1}%
+  % \renewcommand\thefootnote{}\footnote{#1}%
+  \renewcommand*{\thefootnote}{\fnsymbol{footnote}}\footnote{#1}%
   \addtocounter{footnote}{-1}%
   \endgroup
 }
