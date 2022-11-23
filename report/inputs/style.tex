@@ -1,9 +1,28 @@
 % Style commands go here.
 
+\newif\iffootnotesonly
+
+\footnotesonlyfalse
+% \footnotesonlytrue
+
+\newcommand\fn[1]{%
+  \begin{NoHyper}%
+    \footnote{#1}%
+  \end{NoHyper}%
+}
+
+\iffootnotesonly
+  \let\nn\fn
+  \renewcommand*{\thefootnote}{\arabic{footnote}}
+\else
+  \newcommand{\nn}[1]{\endnote{#1}}
+  \renewcommand*{\thefootnote}{\Roman{footnote}}
+
+  \input{inputs/enotez}
+\fi
+
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
-
-\input{inputs/enotez}
 
 % Proper format of caption text.
 % Requires package caption.
@@ -34,6 +53,11 @@
 \definecolor{gray75}{gray}{0.75}
 \newcommand*{\hsp}{\hspace{20pt}}
 \titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\let\origmaketitle\maketitle
+\renewcommand*{\maketitle}{{%
+  \renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
+  \origmaketitle}}
 
 % To avoid fancy header in pages after the first, in TOC and bibliography.
 \let\origtoc\tableofcontents

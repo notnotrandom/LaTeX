@@ -5,24 +5,29 @@
 Skeleton for \LaTeX\ articles  % main title
 }
 \author{
-  {Óscar Pereira}\footnote{\texttt{\{https://, oscar@\}randomwalk.eu}.}
+  {Óscar Pereira}\fn{\texttt{\{https://, oscar@\}randomwalk.eu}.}
 }
 \date{\today}
 % --- END PREAMBLE ---
 
 \begin{document}
 
+% {\renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
+% \maketitle}
 \maketitle
 
 \tableofcontents
 
 \chapter{Introduction}
 \label{chap:intro}
-Science is cool!~\cite{Sagan}. But lots of people don't get it\ldots~\cite{Feynman74}. And now some end note.\nn{The promised end note.}
+Science is cool!~\cite{Sagan}. But lots of people don't get it\ldots~\cite{Feynman74}. And now some end note.\nn{The promised end note.} and now a footnote\fn{sdf}
 
-\clearpage
-\phantomsection
-\printendnotes
+\iffootnotesonly
+\else
+  \clearpage
+  \phantomsection
+  \printendnotes
+\fi
 
 \clearpage
 \phantomsection

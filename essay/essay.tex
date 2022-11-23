@@ -5,12 +5,12 @@
 Write, or wrong?
 }
 \author{
-  Óscar Pereira\footnote{\emph{Date:} \today. \emph{Contact information:} \texttt{\{https://, oscar@\}randomwalk.eu}.}
+Óscar Pereira\fn{\texttt{\{https://, oscar@\}randomwalk.eu}.} \hspace{2em} John Doe\fn{foobar}
 }
 
 % This negative space is required to avoid having too much space between the
 % title of the document and the title of the first section.
-\date{\vspace{-4em}}
+\date{{\small\today}\vspace{-2em}}
 % --- END PREAMBLE ---
 
 \begin{document}
@@ -23,10 +23,13 @@ Write, or wrong?
   \label{sec:intro}
   Something less technical about Feynman~\cite{Feynman74} and Sagan~\cite{Sagan}. And now some end note.\nn{The end note, just because.}
 
-  To write an essay with just the title (i.e., without TOC and section titles), comment out the \verb+\mytoc+ line, and replace the name of the section above (``Introduction'') with \verb+\vspace{-1em}+.
+  To write an essay with just the title (i.e., without TOC and section titles), comment out the \verb+\mytoc+ line, and replace the name of the section above (``Introduction'') with \verb+\vspace{-1em}+.\fn{this is a footnote.} and this\fn{another footnote}
 
-\phantomsection
-\printendnotes
+\iffootnotesonly
+\else
+  \phantomsection
+  \printendnotes
+\fi
 
 \phantomsection
 \addcontentsline{toc}{section}{References}

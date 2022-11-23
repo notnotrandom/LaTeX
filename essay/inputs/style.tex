@@ -1,3 +1,39 @@
+\newif\iffootnotesonly
+
+\footnotesonlyfalse
+% \footnotesonlytrue
+
+% Footnotes are always without hyperlinks.
+\newcommand\fn[1]{%
+  \begin{NoHyper}%
+    \footnote{#1}%
+  \end{NoHyper}%
+}
+
+\iffootnotesonly
+  \let\nn\fn
+  % Since we are using only footnotes, make them using arabic numbers.
+  \renewcommand*{\thefootnote}{\arabic{footnote}}
+\else
+  \newcommand{\nn}[1]{\endnote{#1}}
+
+  % Since we are using numered endnotes, make all footnotes use roman numbers.
+  \renewcommand*{\thefootnote}{\Roman{footnote}}
+
+  % --- Setup enotez package ---
+  \setenotez{
+    backref=true,
+    totoc=section,
+    counter-format=arabic,
+    reset=true,
+    split=false,
+  }
+
+  % Left-align start of note with the respective chapter heading.
+  \DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
+  % --- END Setup enotez package ---
+\fi
+
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
 
@@ -7,15 +43,6 @@
 % Requires package sectsty.
 \allsectionsfont{\centering}
 
-% Make footnotes use symbols, and have no hyperlinks.
-\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
-\NewCommandCopy{\origfootnote}{\footnote}
-\renewcommand\footnote[1]{%
-  \begin{NoHyper}%
-    \origfootnote{#1}%
-  \end{NoHyper}%
-}
-
 % Proper format of caption text.
 % Requires package caption.
 \captionsetup{font=small, labelfont=bf}
@@ -23,6 +50,11 @@
 % Make section entries in TOC also have dots.
 % Requires package tocloft.
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+\let\origmaketitle\maketitle
+\renewcommand*{\maketitle}{{%
+  \renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
+  \origmaketitle}}
 
 % The package tocloft disallows \renew'ing the \tableofcontents command. So I
 % just use the subcommand that generates the TOC proper. This way, I also get
@@ -43,17 +75,3 @@
 \let\olditemizeend\enditemize
 \renewenvironment{itemize}{\olditemize\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\olditemizeend}
 % --- END Reduce the spacing between items in environments that use items. ---
-
-
-% --- Setup enotez package ---
-\setenotez{
-  backref=true,
-  totoc=section,
-  counter-format=arabic,
-  reset=true,
-  split=false,
-}
-
-% Left-align start of note with the respective chapter heading.
-\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
-% --- END Setup enotez package ---
