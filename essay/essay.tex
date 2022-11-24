@@ -4,9 +4,15 @@
 \title{
 Write, or wrong?
 }
-\author{
-Óscar Pereira\fn{\texttt{\{https://, oscar@\}randomwalk.eu}.} \hspace{2em} John Doe\fn{foobar}
+
+\author{%
+Óscar Pereira\footnote{\texttt{\{https://, oscar@\}randomwalk.eu}.}
 }
+
+% {\renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
+% \author{%
+% Óscar Pereira\footnotemark[1]\textsuperscript{\hspace{0.60em},}\footnotemark[2] \hspace{2em} John Doe\footnotemark[2]%
+% }\footnotetext[1]{\texttt{\{https://, oscar@\}randomwalk.eu}.}\footnotetext[2]{foobar}}
 
 % This negative space is required to avoid having too much space between the
 % title of the document and the title of the first section.
@@ -23,7 +29,7 @@ Write, or wrong?
   \label{sec:intro}
   Something less technical about Feynman~\cite{Feynman74} and Sagan~\cite{Sagan}. And now some end note.\nn{The end note, just because.}
 
-  To write an essay with just the title (i.e., without TOC and section titles), comment out the \verb+\mytoc+ line, and replace the name of the section above (``Introduction'') with \verb+\vspace{-1em}+.\fn{this is a footnote.} and this\fn{another footnote}
+  To write an essay with just the title (i.e., without TOC and section titles), comment out the \verb+\mytoc+ line, and replace the name of the section above (``Introduction'') with \verb+\vspace{-1em}+.
 
 \iffootnotesonly
 \else

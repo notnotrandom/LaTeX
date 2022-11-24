@@ -226,6 +226,26 @@ function small_build() {
   fi
 }
 
+function small_double_build() {
+  echo -n "$0: Compiling... "
+  compile "$name" "$build_dir" # compile() returns the $? of the LaTeX command. See Note (1).
+  if [[ $? -ne 0 ]]; then
+    echo -e "Compile of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+    return 1
+  else
+    echo -e "${SUCCESS}Success${NC}."
+  fi
+
+  echo -n "$0: Compiling... "
+  compile "$name" "$build_dir"
+  if [[ $? -ne 0 ]]; then
+    echo -e "Compile of ${name}.tex file was ${ERROR}NOT SUCCESSFUL${NC}!"
+    return 1
+  else
+    echo -e "${SUCCESS}Success${NC}."
+  fi
+}
+
 #
 # *** Main function ***
 #
@@ -246,6 +266,8 @@ function main() {
     clean
   elif [[ $# -eq 1 && "$1" == "debug" ]] ; then
     debugbuild
+  elif [[ $# -eq 1 && "$1" == "double" ]] ; then
+    small_double_build
   elif [[ $# -eq 1 && "$1" == "final" ]] ; then
     final_document
   elif [[ $# -eq 1 && "$1" == "symlinks" ]] ; then

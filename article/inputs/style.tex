@@ -1,14 +1,50 @@
+% Style commands go here.
+
+% Choices: 1) use endnotes, but allow footnotes.
+%          2) use only footnotes.
+\newif\iffootnotesonly
+\footnotesonlyfalse % 1
+% \footnotesonlytrue %2
+
+% Non-hyperlinked footnotes: a shortcut.
+\newcommand\fn[1]{%
+  \begin{NoHyper}%
+    \footnote{#1}%
+  \end{NoHyper}%
+}
+
+% If using only footnotes, use arabic. Otherwise, the endnotes will use arabic,
+% so make the footnotes using Roman.
+\iffootnotesonly
+  \let\nn\fn
+  \renewcommand*{\thefootnote}{\arabic{footnote}}
+\else
+  \newcommand{\nn}[1]{\endnote{#1}}
+  \renewcommand*{\thefootnote}{\Roman{footnote}}
+
+  % --- Setup enotez package ---
+  \setenotez{
+    backref=true,
+    totoc=section,
+    counter-format=arabic,
+    reset=true,
+    split=false,
+  }
+
+  % Left-align start of note with the respective chapter heading.
+  \DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
+  % --- END Setup enotez package ---
+\fi
+
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
 
-% Make footnotes use symbols, and have no hyperlinks.
-\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
-\NewCommandCopy{\origfootnote}{\footnote}
-\renewcommand\footnote[1]{%
-  \begin{NoHyper}%
-    \origfootnote{#1}%
-  \end{NoHyper}%
-}
+% To make the title footnote always use symbols.
+% Note: with report class, this footnote always seem be without hyperlinks.
+\let\origmaketitle\maketitle
+\renewcommand*{\maketitle}{{%
+  \renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
+  \origmaketitle}}
 
 % Proper format of caption text.
 % Requires package caption.
@@ -28,16 +64,3 @@
 \let\olditemizeend\enditemize
 \renewenvironment{itemize}{\olditemize\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\olditemizeend}
 % --- END Reduce the spacing between items in environments that use items. ---
-
-% --- Setup enotez package ---
-\setenotez{
-  backref=true,
-  totoc=section,
-  counter-format=arabic,
-  reset=true,
-  split=false,
-}
-
-% Left-align start of note with the respective chapter heading.
-\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
-% --- END Setup enotez package ---

@@ -1,16 +1,27 @@
 % Style commands go here.
 
+% When using endnotes:
+%   1) let footnotes in starred chapters undisturbed.
+%   2) convert said footnotes into endnotes (rtfm).
+\newif\ifendnotesStarredFinal
+\endnotesStarredFinalfalse
+% \endnotesStarredFinaltrue
+
+% Choices: 1) use endnotes, but allow footnotes.
+%          2) use only footnotes.
 \newif\iffootnotesonly
+\footnotesonlyfalse % 1
+% \footnotesonlytrue %2
 
-\footnotesonlyfalse
-% \footnotesonlytrue
-
+% Non-hyperlinked footnotes: a shortcut.
 \newcommand\fn[1]{%
   \begin{NoHyper}%
     \footnote{#1}%
   \end{NoHyper}%
 }
 
+% If using only footnotes, use arabic. Otherwise, the endnotes will use arabic,
+% so make the footnotes using Roman.
 \iffootnotesonly
   \let\nn\fn
   \renewcommand*{\thefootnote}{\arabic{footnote}}
@@ -18,7 +29,12 @@
   \newcommand{\nn}[1]{\endnote{#1}}
   \renewcommand*{\thefootnote}{\Roman{footnote}}
 
+  % We're using endnotes, so setup its package.
   \input{inputs/enotez}
+
+  \ifendnotesStarredFinal
+    \let\fn\nn
+  \fi
 \fi
 
 % Make the page a bit wider. Requires package geometry.
@@ -54,6 +70,8 @@
 \newcommand*{\hsp}{\hspace{20pt}}
 \titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
 
+% To make the title footnote always use symbols.
+% Note: with report class, this footnote always seem be without hyperlinks.
 \let\origmaketitle\maketitle
 \renewcommand*{\maketitle}{{%
   \renewcommand*{\thefootnote}{\fnsymbol{footnote}}%

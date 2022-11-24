@@ -59,11 +59,9 @@
 % \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
 % \logo{\pgfuseimage{university-logo}}
 
-% -------------------------------------------------------
-% -------------------------------------------------------
-% ------------------- CUSTOM STUFF ----------------------
-% -------------------------------------------------------
-% -------------------------------------------------------
+% ---------------------------------------------------------
+% Append new stuff below. Suggestion: begin with \input's.
+% ---------------------------------------------------------
 
 % Use this space for custom things, other than \usepackage's. If the
 % customisations are lengthy, consider putting them into their own file, to be
@@ -71,8 +69,15 @@
 
 \newcommand*{\emd}{\textemdash}
 
-% -------------------------------------------------------
-% -------------------------------------------------------
-% ------------------- END CUSTOM STUFF ------------------
-% -------------------------------------------------------
-% -------------------------------------------------------
+% Fotnotes: a shortcut.
+\newcommand\nn[1]{\footnote{#1}}
+
+% ---------------------------------------------------------
+% ---------------------------------------------------------
+
+% To colour \url{}'s.
+\hypersetup{
+  colorlinks=true,
+  hyperfootnotes=false,
+  urlcolor=MidnightBlue,
+}

@@ -1,23 +1,25 @@
+% Style commands go here.
+
+% Choices: 1) use endnotes, but allow footnotes.
+%          2) use only footnotes.
 \newif\iffootnotesonly
+\footnotesonlyfalse % 1
+% \footnotesonlytrue %2
 
-\footnotesonlyfalse
-% \footnotesonlytrue
-
-% Footnotes are always without hyperlinks.
+% Non-hyperlinked footnotes: a shortcut.
 \newcommand\fn[1]{%
   \begin{NoHyper}%
     \footnote{#1}%
   \end{NoHyper}%
 }
 
+% If using only footnotes, use arabic. Otherwise, the endnotes will use arabic,
+% so make the footnotes using Roman.
 \iffootnotesonly
   \let\nn\fn
-  % Since we are using only footnotes, make them using arabic numbers.
   \renewcommand*{\thefootnote}{\arabic{footnote}}
 \else
   \newcommand{\nn}[1]{\endnote{#1}}
-
-  % Since we are using numered endnotes, make all footnotes use roman numbers.
   \renewcommand*{\thefootnote}{\Roman{footnote}}
 
   % --- Setup enotez package ---
@@ -51,6 +53,8 @@
 % Requires package tocloft.
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
+% To make the title footnote always use symbols.
+% Note: with report class, this footnote always seem be without hyperlinks.
 \let\origmaketitle\maketitle
 \renewcommand*{\maketitle}{{%
   \renewcommand*{\thefootnote}{\fnsymbol{footnote}}%

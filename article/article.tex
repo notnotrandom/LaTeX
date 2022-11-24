@@ -5,12 +5,12 @@
 Write, or wrong?
 }
 \author{
-  Óscar Pereira\footnote{\emph{Date:} \today. \emph{Contact information:} \texttt{\{https://, oscar@\}randomwalk.eu}.}
+  Óscar Pereira\footnote{\texttt{\{https://, oscar@\}randomwalk.eu}.}
 }
 
 % This negative space is required to avoid having too much space between the
 % title of the document and the title of the first section.
-\date{\vspace{-4em}}
+\date{\vspace{-2em}}
 % --- END PREAMBLE ---
 
 \begin{document}
@@ -25,8 +25,11 @@ Write, or wrong?
   \label{sec:intro}
   Something much more technical about Feynman~\cite{Feynman74} and Sagan~\cite{Sagan}.\nn{And some note.}
 
-\phantomsection
-\printendnotes
+\iffootnotesonly
+\else
+  \phantomsection
+  \printendnotes
+\fi
 
 \phantomsection
 \addcontentsline{toc}{section}{References}
