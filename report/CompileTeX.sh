@@ -2,10 +2,9 @@
 
 # See the end of file for an overall explanation of this file.
 
-# $name is one of: cv, bare, essay, llncs, presentation, report, or standalone.
+##### VARIABLES THAT THE USER CAN SET #####
 name="report"
 
-##### VARIABLES THAT THE USER CAN SET #####
 # To disable building bibliography, set this to false.
 do_bib="true"
 
@@ -257,8 +256,7 @@ function final_document() {
   cp "${build_dir}"/"${name}.pdf" "${finalname}.pdf"
 }
 
-# Do a single compile run---and if it is successful, do the same for the
-# unabridged copy.
+# Do a single compile run.
 function small_build() {
   echo -n "$0: Compiling... "
   compile "$name" "$build_dir" # compile() returns the $? of the LaTeX command. See Note (1).
@@ -368,19 +366,15 @@ main "$@"
 #
 # - compile() just runs the LaTeX compiler on whatever file it is given.
 #
-# - small_build() runs compile() on the regular copy, and then (if using
-# \includeonly) on the unabridged copy. If \includeonly is not used, after
-# compiling the regular copy, it just copies the pdf file---because in this
-# case, both regular and unabridged versions match.
+# - small_build() runs compile() on the regular copy.
 #
 # - big_build() is the function supposed to be run when updating bibliographic
 # references, indexes, etc. It is tricky to run when also using \includeonly;
 # so it actually builds the entire document. See the comments therein for
 # further information.
 #
-# Most of the remaining functions revolve around these three, to compile both
-# the report and its unabridged version, and to check for errors and give
-# feedback properly, and so on.
+# Most of the remaining functions revolve around these three, to compile the
+# report and to check for errors and give feedback properly, and so on.
 #
 ################################################################################
 
