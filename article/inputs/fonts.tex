@@ -1,5 +1,11 @@
 % Set up FONTS to use.
 
+\usepackage{fontspec}
+\usepackage[bitstream-charter]{mathdesign}
+
+% For mathdesign not to screw up small caps.
+\renewcommand\scdefault{sc}
+
 % Customise \mathcal.
 \DeclareSymbolFont{usualmathcal}{OMS}{cmsy}{m}{n}
 \DeclareSymbolFontAlphabet{\mathcal}{usualmathcal}
