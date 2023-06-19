@@ -26,11 +26,8 @@ Write, or wrong?
 
   To write an essay with just the title (i.e., without TOC and section titles), comment out the \verb+\mytoc+ line, and replace the name of the section above (``Introduction'') with \verb+\vspace{-1em}+.
 
-\iffootnotesonly
-\else
-  \phantomsection
-  \printendnotes
-\fi
+\phantomsection
+\printendnotes
 
 \phantomsection
 \addcontentsline{toc}{section}{References}

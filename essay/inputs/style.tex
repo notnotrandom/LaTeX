@@ -1,40 +1,18 @@
 % Style commands go here.
 
-% Choices: 1) use endnotes, but allow footnotes.
-%          2) use only footnotes.
-\newif\iffootnotesonly
-\footnotesonlyfalse % 1
-% \footnotesonlytrue %2
-
-% Non-hyperlinked footnotes: a shortcut.
-\newcommand\fn[1]{%
-  \begin{NoHyper}%
-    \footnote{#1}%
-  \end{NoHyper}%
+% --- Setup enotez package ---
+\setenotez{
+  backref=true,
+  totoc=section,
+  counter-format=arabic,
+  reset=true,
+  split=false,
 }
 
-% If using only footnotes, use arabic. Otherwise, the endnotes will use arabic,
-% so make the footnotes using Roman.
-\iffootnotesonly
-  \let\nn\fn
-  \renewcommand*{\thefootnote}{\arabic{footnote}}
-\else
-  \newcommand{\nn}[1]{\endnote{#1}}
-  \renewcommand*{\thefootnote}{\Roman{footnote}}
+% Left-align start of note with the respective chapter heading.
+\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
 
-  % --- Setup enotez package ---
-  \setenotez{
-    backref=true,
-    totoc=section,
-    counter-format=arabic,
-    reset=true,
-    split=false,
-  }
-
-  % Left-align start of note with the respective chapter heading.
-  \DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
-  % --- END Setup enotez package ---
-\fi
+% --- END Setup enotez package ---
 
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}

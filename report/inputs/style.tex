@@ -1,48 +1,29 @@
 % Style commands go here.
 
-% When using endnotes:
-%   1) let footnotes in starred chapters undisturbed.
-%   2) convert said footnotes into endnotes (rtfm).
-\newif\ifendnotesStarredFinal
-\endnotesStarredFinalfalse
-% \endnotesStarredFinaltrue
-
-% Choices: 1) use endnotes, but allow footnotes.
-%          2) use only footnotes.
-\newif\iffootnotesonly
-\footnotesonlyfalse % 1
-% \footnotesonlytrue %2
-
-% Non-hyperlinked footnotes: a shortcut.
-\newcommand\fn[1]{%
-  \begin{NoHyper}%
-    \footnote{#1}%
-  \end{NoHyper}%
-}
-
-% If using only footnotes, use arabic. Otherwise, the endnotes will use arabic,
-% so make the footnotes using Roman.
-\iffootnotesonly
-  \let\nn\fn
-  \renewcommand*{\thefootnote}{\arabic{footnote}}
-\else
-  \newcommand{\nn}[1]{\endnote{#1}}
-  \renewcommand*{\thefootnote}{\Roman{footnote}}
-
-  % We're using endnotes, so setup its package.
-  \input{inputs/enotez}
-
-  \ifendnotesStarredFinal
-    \let\fn\nn
-  \fi
-\fi
-
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
 
 % Proper format of caption text.
 % Requires package caption.
 \captionsetup{font=small, labelfont=bf}
+
+% --- Setup enotez package ---
+% We're using endnotes, so setup its package. It contains stuff that has to be
+% set up before dealing with fancyhdr.
+
+\setenotez{
+  backref=true,
+  reset=true,
+  list-heading=\section*{#1},
+  counter-format=arabic,
+}
+
+\let\ppen\printendnotes
+
+% Left-align start of note with the respective chapter heading.
+\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
+
+% --- END Setup enotez package ---
 
 % To indicate current chapter name and number in the header.
 % Requires package fancyhdr.
@@ -55,10 +36,8 @@
 \fancyhead[R]{}
 \fancyhead[L]{\fontsize{10}{12}\selectfont\leftmark \hfill \thepage}
 
-% Remove original page numbers (bottom, centered).
-\cfoot{}
-% Do the same for the page number in the chapter opening page (\cfoot{} leaves
-% those..).
+% Remove the page number in the chapter opening page (\cfoot{} leaves
+% those...).
 \fancypagestyle{plain}{%
   \renewcommand{\headrulewidth}{0pt}%
   \fancyhf{}%
@@ -92,10 +71,6 @@
 % \renewcommand*{\printindex}{%
 %   \footnotesize\printindexorig\cleardoublepage}
 
-% Proper format of caption text.
-% Requires package caption.
-\captionsetup{font=small, labelfont=bf}
-
 % --- Reduce the spacing between items in environments that use items. ---
 \let\oldenumerate\enumerate
 \let\oldenumerateend\endenumerate
@@ -105,3 +80,12 @@
 \let\olditemizeend\enditemize
 \renewenvironment{itemize}{\olditemize\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\olditemizeend}
 % --- END Reduce the spacing between items in environments that use items. ---
+
+% Make first line in quotation environment NOT be indented.
+\makeatletter
+\renewenvironment{quotation}
+{\list{}{\listparindent 1.5em%
+  \rightmargin \leftmargin
+  \parsep        \z@ \@plus\p@}%
+  \item\relax}{\endlist}
+\makeatother
