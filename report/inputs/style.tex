@@ -7,23 +7,15 @@
 % Requires package caption.
 \captionsetup{font=small, labelfont=bf}
 
-% --- Setup enotez package ---
-% We're using endnotes, so setup its package. It contains stuff that has to be
-% set up before dealing with fancyhdr.
+% --- Setup notes package ---
+\postnotesetup{heading={
+  \section*{\pntitle}},
+  style=pagenote,
+  format={\small}}
 
-\setenotez{
-  backref=true,
-  reset=true,
-  list-heading=\section*{#1},
-  counter-format=arabic,
-}
-
-\let\ppen\printendnotes
-
-% Left-align start of note with the respective chapter heading.
-\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
-
-% --- END Setup enotez package ---
+\counterwithin*{postnote}{chapter}
+\let\ppen\printpostnotes
+% --- END Setup notes package ---
 
 % To indicate current chapter name and number in the header.
 % Requires package fancyhdr.

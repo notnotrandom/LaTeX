@@ -1,18 +1,11 @@
 % Style commands go here.
 
-% --- Setup enotez package ---
-\setenotez{
-  backref=true,
-  totoc=section,
-  counter-format=arabic,
-  reset=true,
-  split=false,
-}
-
-% Left-align start of note with the respective chapter heading.
-\DeclareInstance{enotez-list}{plain}{paragraph}{format=\footnotesize\leftskip1.25em}
-
-% --- END Setup enotez package ---
+% --- Setup notes package ---
+\postnotesetup{heading={
+  \section*{\pntitle}},
+  style=pagenote,
+  format={\small}}
+% --- END Setup notes package ---
 
 % Make the page a bit wider. Requires package geometry.
 \geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
