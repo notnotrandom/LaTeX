@@ -1,7 +1,6 @@
 % Style commands go here.
 
-% Make the page a bit wider. Requires package geometry.
-\geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
+\geometry{top=2.5cm, bottom=1.3cm}
 
 % Proper format of caption text.
 % Requires package caption.
@@ -71,13 +70,17 @@
 \let\olditemize\itemize
 \let\olditemizeend\enditemize
 \renewenvironment{itemize}{\olditemize\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\olditemizeend}
-% --- END Reduce the spacing between items in environments that use items. ---
+% --- END Reduce the spacing between items in environments that use items ---
+
+% Remove indent from bullet items.
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
 
 % Make first line in quotation environment NOT be indented.
 \makeatletter
 \renewenvironment{quotation}
 {\list{}{\listparindent 1.5em%
   \rightmargin \leftmargin
-  \parsep        \z@ \@plus\p@}%
+  \parsep \z@ \@plus\p@}%
   \item\relax}{\endlist}
 \makeatother

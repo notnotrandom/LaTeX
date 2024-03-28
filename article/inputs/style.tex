@@ -1,32 +1,91 @@
 % Style commands go here.
 
-% --- Setup notes package ---
-\postnotesetup{heading={
-  \section*{\pntitle}},
-  style=pagenote,
-  format={\small}}
-% --- END Setup notes package ---
+\geometry{top=2.5cm, bottom=1.3cm}
 
-% Make the page a bit wider. Requires package geometry.
-\geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=3.0cm}
-
-% To make the title footnote always use symbols.
+% Make the title footnote always use symbols.
 % Note: with report class, this footnote always seem be without hyperlinks.
 \let\origmaketitle\maketitle
 \renewcommand*{\maketitle}{{%
   \renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
   \origmaketitle}}
 
+% --- Setup page header style ---
+% Requires package fancyhdr.
+\pagestyle{fancy}
+
+% To allow suppressing the section number when needed (e.g., References).
+\newif\ifhidesectnum
+\hidesectnumfalse
+
+% Make \sectionmark yield:
+% - "\S <section number> -- <section title>", when \ifhidesectnum is false.
+% - "<section title>", when \ifhidesectnum is true.
+% \ifhidesectnum is true for ToC, References and starred sections XXX.
+\makeatletter
+\renewcommand{\sectionmark}[1]{\markboth{%
+  \ifhidesectnum\else \S \thesection\ --\ \fi #1}{}}
+\makeatother
+
+% Setup (single-)page header: \chaptermark on the left side, and page number on
+% the right.
+\fancyhead[R]{}
+\fancyhead[L]{\fontsize{10}{12}\selectfont\firstleftmark \hfill \thepage}
+
+% Get rid of the page number in the footer.
+\cfoot{}
+
+% Remove the page number in the chapter opening page (\cfoot{} leaves
+% those...).
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhf{}}
+% --- END Setup page header style ---
+
 % Proper format of caption text.
 % Requires package caption.
 \captionsetup{font=small, labelfont=bf}
+
+% Endnotes will use Arabic numbers, so make any footnote the author decides to
+% throw in use Roman numerals.
+\renewcommand*{\thefootnote}{\Roman{footnote}}
+
+% --- Setup postnotes package ---
+\postnotesetup{
+  heading={\section*{\pntitle\markboth{\pntitle}{}}}}
+
+\newcommand{\ppn}{\hidesectnumtrue\printpostnotes\hidesectnumfalse}
+% --- END Setup notes package ---
 
 % For runin abstract, with a specified margin.
 \renewenvironment{abstract}
 {\small\quotation\noindent\textbf{\abstractname.}}
 {\endquotation}
 
-% --- Reduce the spacing between items in environments that use items. ---
+% --- Setup References ---
+
+% Name for the bibliography section.
+\newcommand\bibsectionname{References}
+
+% Make fancy header for bibliography section not show a section number, cf. the
+% redefinition of the \sectionmark command, above.
+\renewcommand*{\bibsection}{%
+  \hidesectnumtrue%
+  \section*{\bibsectionname\markboth{\bibsectionname}{}}%
+  \hidesectnumfalse}
+
+% Use the same font size for bibliography as in footnotes.
+\renewcommand*{\bibfont}{\footnotesize}
+
+% Smaller vertical separation between bibtems.
+\setlength{\bibsep}{0pt plus 0.5ex}
+
+% Make bib listing with <number><dot>.
+\makeatletter
+\renewcommand\@biblabel[1]{\textrm{#1.}}
+\makeatother
+% --- END Setup References ---
+
+% --- Reduce the spacing between items in environments that use items ---
 \let\oldenumerate\enumerate
 \let\oldenumerateend\endenumerate
 \renewenvironment{enumerate}{\oldenumerate\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\oldenumerateend}
@@ -34,4 +93,17 @@
 \let\olditemize\itemize
 \let\olditemizeend\enditemize
 \renewenvironment{itemize}{\olditemize\setlength{\itemsep}{0.25em} \setlength{\parskip}{0pt}}{\olditemizeend}
-% --- END Reduce the spacing between items in environments that use items. ---
+% --- END Reduce the spacing between items in environments that use items ---
+
+% Remove indent from bullet items.
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+
+% Make first line in quotation environment NOT be indented.
+\makeatletter
+\renewenvironment{quotation}
+{\list{}{\listparindent 1.5em%
+  \rightmargin \leftmargin
+  \parsep \z@ \@plus\p@}%
+  \item\relax}{\endlist}
+\makeatother

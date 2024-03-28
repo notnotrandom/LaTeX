@@ -1,9 +1,25 @@
 % These are staple commands of my LaTeX diet.
 \newcommand*{\emd}{\textemdash}
 \newcommand*{\nmd}[1]{\noindent\textbf{#1}}
+
 \newcommand{\nn}[1]{\postnote{#1}}
+%
+% Shift note number a tad to the left. Allows an optional argument, to
+% fine-tune (i.e., correct) the default shift.
+\newcommand*{\kk}[1][0]{\kern#1em\kern-0.25em}
+%
+% Use instead of \nn when preceeded by dot (.) % or comma (,). The optional
+% argument corrects the default kerning (shift), cf. previous command. Example:
+% \pnn[0.1]{your footnote here...}
+\newcommand{\pnn}[2][0]{\kk[#1]\nn{#2}}
+
 \newcommand*{\tsc}{\textsuperscript{,}}
 
-% ---------------------------------------------------------
-% Append new stuff below. Suggestion: begin with \input's.
-% ---------------------------------------------------------
+% ---------------------------------------------------------------------------
+% Append new stuff below. Suggestions: 1) whenever possible, place these new
+% things in a separate file(s); 2) begin with \input'ing those files.
+% ---------------------------------------------------------------------------
+
+\input{inputs/custom/mathdelims}
+\input{inputs/custom/mathenvs}
+\input{inputs/custom/mathgeneric}
