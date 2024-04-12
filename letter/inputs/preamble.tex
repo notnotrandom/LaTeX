@@ -70,7 +70,14 @@
 
 % These are staple commands of my LaTeX diet.
 \newcommand*{\emd}{\textemdash}
+\newcommand*{\nmd}[1]{\noindent\textbf{#1}}
+\newcommand*{\tsc}[1]{\textsuperscript{#1}}
+
 \newcommand{\nn}[1]{\footnote{#1}}
+% Shift note number a tad to the left. Allows an optional argument, to
+% fine-tune (i.e., correct) the default shift.
+\newcommand*{\kk}[1][0]{\kern#1em\kern-0.25em}
+\newcommand{\snn}[2][0]{\kk[#1]\nn{#2}}
 
 % ---------------------------------------------------------
 % Append new stuff below. Suggestion: begin with \input's.
