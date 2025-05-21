@@ -1,3 +1,3 @@
 # LaTeX templates
 
-See [https://randomwalk.eu/LaTeX/latex-templates/](https://randomwalk.eu/LaTeX/latex-templates/).
+See [https://gd7.eu/LaTeX/latex-templates/](https://randomwalk.eu/LaTeX/latex-templates/).
